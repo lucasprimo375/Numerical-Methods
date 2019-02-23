@@ -2,6 +2,8 @@
 #include <vector>
 #include <fstream>
 
+#include "utils/utils.h"
+
 double discrete_backward_derivative(std::vector<double>& points, int index, double delta_x);
 double discrete_forward_derivative(std::vector<double>& points, int index, double delta_x);
 double discrete_central_derivative(std::vector<double>& points, int index, double delta_x);
@@ -13,9 +15,15 @@ double discrete_derivative(std::vector<double>& points, int index, double delta_
 int main(int argc, char *argv[]) {
     std::vector<double> points;
 
+    utils();
+
     //std::cout << discrete_derivative(points, 0, 1) << std::endl;
 
-    read_points_file("/home/374192/image_edge/file.txt");
+    if(argc >= 2){
+        read_points_file(argv[1]);
+    } else {
+        std::cout << "you must specify the a file (global path) where the points are located" << std::endl;
+    }
 
     return 0;
 }
