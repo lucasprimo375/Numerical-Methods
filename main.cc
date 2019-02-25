@@ -8,21 +8,21 @@ double discrete_backward_derivative(std::vector<double>& points, int index, doub
 double discrete_forward_derivative(std::vector<double>& points, int index, double delta_x);
 double discrete_central_derivative(std::vector<double>& points, int index, double delta_x);
 
-std::vector<double> *read_points_file(std::string file_name);
+std::vector<double>* read_points_file(std::string file_name);
 
 double discrete_derivative(std::vector<double>& points, int index, double delta_x);
 
 int main(int argc, char *argv[]) {
-    std::vector<double> points;
+    std::vector<double>* points;
 
     utils();
 
     //std::cout << discrete_derivative(points, 0, 1) << std::endl;
 
     if(argc >= 2){
-        read_points_file(argv[1]);
+        points = read_points_file(argv[1]);
     } else {
-        std::cout << "you must specify the a file (global path) where the points are located" << std::endl;
+        std::cout << "you must specify the file (global path) where the points are located" << std::endl;
     }
 
     return 0;
@@ -46,13 +46,17 @@ std::vector<double>* read_points_file(std::string file_name){
 
     if(!points_input_stream){
         std::cout << "your file could not be opened" << std::endl;
-        return NULL;
+        return nullptr;
     }
+
+    std::vector<double>* points = new std::vector<double>;
 
     std::string line;
     while(points_input_stream >> line){
-        std::cout << line << std::endl;
+        points->push_back(std::stod(line));
     }
+
+    return points;
 }
 
 double discrete_derivative(std::vector<double> &points, int index, double delta_x){
