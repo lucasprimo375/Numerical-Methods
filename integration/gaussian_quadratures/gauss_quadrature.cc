@@ -7,11 +7,11 @@ GaussQuadrature::GaussQuadrature(double a, double b) {
 
 double GaussQuadrature::estimate(double (*f)(double)) {
 	double I = 0;
-	
+
 	for(int i = 0; i < degree; i++) {
 		I += f(x_s(roots[i])) * weights[i];
 	}
-	
+
 	return ((b-a)/2)*I;
 }
 
