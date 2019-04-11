@@ -24,7 +24,7 @@ Degree get_user_choice() {
 }
 
 static double f(double x) {
-	return 1/x;
+	return 1.0/x;
 }
 
 void calculate_integral() {
