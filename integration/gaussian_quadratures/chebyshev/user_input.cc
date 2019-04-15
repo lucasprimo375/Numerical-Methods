@@ -24,7 +24,7 @@ Degree get_user_choice() {
 }
 
 static double f(double x) {
-	return 1.0/x;
+	return x*x;
 }
 
 void calculate_integral() {
@@ -48,6 +48,8 @@ void calculate_integral() {
 	}
 
 	result = gauss_quadrature->estimate(&f);
+
+	std::cout << std::setprecision(22);
 
 	std::cout << "result: " << result << std::endl;
 

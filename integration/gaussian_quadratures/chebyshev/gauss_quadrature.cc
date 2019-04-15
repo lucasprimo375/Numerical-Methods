@@ -17,6 +17,5 @@ double GaussQuadrature::estimate(double (*f)(double)) {
 }
 
 double GaussQuadrature::x_s(int k){
-	double temp = (k-0.5)/degree;
-	return std::cos(temp * M_PI);
+	return std::cos(((k - 1.0/2)*M_PI)/degree);
 }
