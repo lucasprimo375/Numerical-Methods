@@ -24,6 +24,11 @@ int main(int argc, char *argv[]) {
     double* first_derivative_forward_accuracy_three = new double[number_of_points];
     double* first_derivative_forward_accuracy_four = new double[number_of_points];
 
+    double* first_derivative_backward_accuracy_one = new double[number_of_points];
+    double* first_derivative_backward_accuracy_two = new double[number_of_points];
+    double* first_derivative_backward_accuracy_three = new double[number_of_points];
+    double* first_derivative_backward_accuracy_four = new double[number_of_points];
+
 	for(int i=0; i<number_of_points; i++){
 		first_derivative_central_accuracy_two[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::Two, delta_x);
         first_derivative_central_accuracy_four[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::Four, delta_x);
@@ -33,6 +38,11 @@ int main(int argc, char *argv[]) {
         first_derivative_forward_accuracy_two[i] = FirstDerivative::forward(data_points, i, number_of_points, Accuracy::Two, delta_x);
         first_derivative_forward_accuracy_three[i] = FirstDerivative::forward(data_points, i, number_of_points, Accuracy::Three, delta_x);
         first_derivative_forward_accuracy_four[i] = FirstDerivative::forward(data_points, i, number_of_points, Accuracy::Four, delta_x);
+
+        first_derivative_backward_accuracy_one[i] = FirstDerivative::backward(data_points, i, number_of_points, Accuracy::One, delta_x);
+        first_derivative_backward_accuracy_two[i] = FirstDerivative::backward(data_points, i, number_of_points, Accuracy::Two, delta_x);
+        first_derivative_backward_accuracy_three[i] = FirstDerivative::backward(data_points, i, number_of_points, Accuracy::Three, delta_x);
+        first_derivative_backward_accuracy_four[i] = FirstDerivative::backward(data_points, i, number_of_points, Accuracy::Four, delta_x);
 	}
 
 	write_result_to_file(first_derivative_central_accuracy_two, number_of_points, "first_derivative_central_accuracy_two.txt");
@@ -43,4 +53,9 @@ int main(int argc, char *argv[]) {
     write_result_to_file(first_derivative_forward_accuracy_two, number_of_points, "first_derivative_forward_accuracy_two.txt");
     write_result_to_file(first_derivative_forward_accuracy_three, number_of_points, "first_derivative_forward_accuracy_three.txt");
     write_result_to_file(first_derivative_forward_accuracy_four, number_of_points, "first_derivative_forward_accuracy_four.txt");
+
+    write_result_to_file(first_derivative_backward_accuracy_one, number_of_points, "first_derivative_backward_accuracy_one.txt");
+    write_result_to_file(first_derivative_backward_accuracy_two, number_of_points, "first_derivative_backward_accuracy_two.txt");
+    write_result_to_file(first_derivative_backward_accuracy_three, number_of_points, "first_derivative_backward_accuracy_three.txt");
+    write_result_to_file(first_derivative_backward_accuracy_four, number_of_points, "first_derivative_backward_accuracy_four.txt");
 }

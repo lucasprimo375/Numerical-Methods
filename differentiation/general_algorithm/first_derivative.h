@@ -6,6 +6,7 @@
 namespace FirstDerivative {
 	double central(double* points, int point, int size, Accuracy accuracy, double delta_x);
 	double forward(double* points, int point, int size, Accuracy accuracy, double delta_x);
+	double backward(double* points, int point, int size, Accuracy accuracy, double delta_x);
 };
 
 #endif

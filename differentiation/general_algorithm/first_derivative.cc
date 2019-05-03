@@ -91,6 +91,68 @@ double FirstDerivative::forward(double* points, int point, int size, Accuracy ac
 			}
 
 			break;
+		}
+
+		default: {
+			return 0;
+			break;
 		}		
 	}
+}
+
+double FirstDerivative::backward(double* points, int point, int size, Accuracy accuracy, double delta_x) {
+	switch( accuracy ) {
+		case Accuracy::One : {
+			if( point - 1 > -1 ) {
+				return ( points[point] - points[point - 1] )/delta_x;
+			} else {
+				std::cout << "Not possible to calculate first derivative - accuracy one - backward to point " << point << ", with value " << points[point] << std::endl;
+				std::cout << "Returning zero" << std::endl;
+				return 0;
+			}
+
+			break;
+		}
+
+		case Accuracy::Two : {
+			if( point - 2 > -1 ) {
+				return ( 3.0*points[point]/2.0 - 2.0*points[point - 1] + points[point - 2]/2.0)/delta_x;
+			} else {
+				std::cout << "Not possible to calculate first derivative - accuracy two - backward to point " << point << ", with value " << points[point] << std::endl;
+				std::cout << "Calculating with accuracy One" << std::endl;
+				return backward(points, point, size, Accuracy::One, delta_x);
+			}
+
+			break;
+		}
+
+		case Accuracy::Three : {
+			if( point - 3 > -1 ) {
+				return ( 11.0*points[point]/6.0 - 3.0*points[point - 1] + 3.0*points[point - 2]/2.0 - points[point - 3]/3)/delta_x;
+			} else {
+				std::cout << "Not possible to calculate first derivative - accuracy three - backward to point " << point << ", with value " << points[point] << std::endl;
+				std::cout << "Calculating with accuracy Two" << std::endl;
+				return backward(points, point, size, Accuracy::Two, delta_x);
+			}
+
+			break;
+		}
+
+		case Accuracy::Four : {
+			if( point - 4 > -1 ) {
+				return ( 25.0*points[point]/12.0 - 4.0*points[point - 1] + 3.0*points[point - 2] - 4.0*points[point - 3]/3 + points[point - 4]/4)/delta_x;
+			} else {
+				std::cout << "Not possible to calculate first derivative - accuracy four - backward to point " << point << ", with value " << points[point] << std::endl;
+				std::cout << "Calculating with accuracy Three" << std::endl;
+				return backward(points, point, size, Accuracy::Three, delta_x);
+			}
+
+			break;
+		}
+
+		default: {
+			return 0;
+			break;
+		}
+	}	
 }
