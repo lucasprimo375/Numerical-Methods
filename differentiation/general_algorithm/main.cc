@@ -22,13 +22,19 @@ int main(int argc, char *argv[]) {
 	
 	double* data_points = get_data_points(data_file_global_path, &number_of_points);
 	
-	double* result = new double[number_of_points];
-	
+	double* first_derivative_central_accuracy_two = new double[number_of_points];
+	double* first_derivative_central_accuracy_four = new double[number_of_points];
+    double* first_derivative_central_accuracy_six = new double[number_of_points];
+
 	for(int i=0; i<number_of_points; i++){
-		result[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::One);
+		first_derivative_central_accuracy_two[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::Two);
+        first_derivative_central_accuracy_four[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::Four);
+        first_derivative_central_accuracy_six[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::Six);
 	}
-	
-	write_result_to_file(result, number_of_points, "first_derivative_central_accuracy_one.txt");
+
+	write_result_to_file(first_derivative_central_accuracy_two, number_of_points, "first_derivative_central_accuracy_two.txt");
+    write_result_to_file(first_derivative_central_accuracy_four, number_of_points, "first_derivative_central_accuracy_four.txt");
+    write_result_to_file(first_derivative_central_accuracy_six, number_of_points, "first_derivative_central_accuracy_six.txt");
 
     /*std::vector<double>* points;
 

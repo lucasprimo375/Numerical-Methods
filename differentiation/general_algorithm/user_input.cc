@@ -4,6 +4,7 @@
 #include "user_input.h"
 
 std::string get_file_global_path() {
+	return "input.txt";
 	std::string file_name;
 
 	std::cout << "Input file global path: ";
@@ -14,6 +15,7 @@ std::string get_file_global_path() {
 }
 
 int get_number_of_points(){
+	return 10;
 	int number_of_points = -1;
 	
 	while(number_of_points < 1){
