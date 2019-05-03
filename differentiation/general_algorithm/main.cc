@@ -1,18 +1,36 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include <fstream>
+
+#include "user_input.h"
+#include "utils.h"
+#include "first_derivative.h"
 
 double discrete_backward_derivative(std::vector<double>* points, int index, double delta_x);
 double discrete_forward_derivative(std::vector<double>* points, int index, double delta_x);
 double discrete_central_derivative(std::vector<double>* points, int index, double delta_x);
 
-std::vector<double>* read_points_file(std::string file_name);
 void calculate_discrete_derivative(std::vector<double>* points, double delta_x, std::string output_file_name);
 
 double discrete_derivative(std::vector<double>* points, int index, double delta_x);
 
 int main(int argc, char *argv[]) {
-    std::vector<double>* points;
+
+	std::string data_file_global_path = get_file_global_path();
+	int number_of_points = get_number_of_points();
+	
+	double* data_points = get_data_points(data_file_global_path, &number_of_points);
+	
+	double* result = new double[number_of_points];
+	
+	for(int i=0; i<number_of_points; i++){
+		result[i] = FirstDerivative::central(data_points, i, number_of_points, Accuracy::One);
+	}
+	
+	write_result_to_file(result, number_of_points, "first_derivative_central_accuracy_one.txt");
+
+    /*std::vector<double>* points;
 
     if(argc >= 3){
         points = read_points_file(argv[1]);
@@ -28,7 +46,7 @@ int main(int argc, char *argv[]) {
                     << "first the input file name then the output file name" << std::endl;
     }
 
-    return 0;
+    return 0;*/
 }
 
 void calculate_discrete_derivative(std::vector<double>* points, double delta_x, std::string output_file_name){
@@ -64,27 +82,6 @@ double discrete_forward_derivative(std::vector<double> *points, int index, doubl
 
 double discrete_central_derivative(std::vector<double> *points, int index, double delta_x){
     return (points->at(index+1) - points->at(index-1))/(2*delta_x);
-}
-
-std::vector<double>* read_points_file(std::string file_name){
-    std::ifstream points_input_stream;
-    points_input_stream.open(file_name.c_str(), std::ifstream::in);
-
-    if(!points_input_stream){
-        std::cout << "your input file could not be opened" << std::endl;
-        return nullptr;
-    }
-
-    std::vector<double>* points = new std::vector<double>;
-
-    std::string line;
-    while(points_input_stream >> line){
-        points->push_back(std::stod(line));
-    }
-
-    points_input_stream.close();
-
-    return points;
 }
 
 double discrete_derivative(std::vector<double> *points, int index, double delta_x){
