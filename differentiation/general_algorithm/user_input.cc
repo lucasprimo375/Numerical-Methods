@@ -26,3 +26,16 @@ int get_number_of_points(){
 	
 	return number_of_points;
 }
+
+double get_delta_x() {
+	return 1;
+	double delta_x = 0;
+
+	while( delta_x <= 0 ) {
+		std::cout << "Input delta x: ";
+
+		std::cin >> delta_x;
+	}
+
+	return delta_x;
+}
