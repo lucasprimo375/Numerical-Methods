@@ -4,7 +4,6 @@
 #include "user_input.h"
 
 std::string get_file_global_path() {
-	return "input.txt";
 	std::string file_name;
 
 	std::cout << "Input file global path: ";
@@ -15,7 +14,6 @@ std::string get_file_global_path() {
 }
 
 int get_number_of_points(){
-	return 99;
 	int number_of_points = -1;
 	
 	while(number_of_points < 1){
@@ -28,7 +26,6 @@ int get_number_of_points(){
 }
 
 double get_delta_x() {
-	return 1;
 	double delta_x = 0;
 
 	while( delta_x <= 0 ) {
@@ -38,4 +35,27 @@ double get_delta_x() {
 	}
 
 	return delta_x;
+}
+
+
+Derivative get_user_derivative_choice() {
+    int choice = 0;
+
+    while((choice < 1) || (choice > 3)){
+        std::cout << "Input derivative choice. 1, 2 or 3." << std::endl;
+        std::cout << ">> ";
+
+        std::cin >> choice;
+    }
+
+    switch(choice){
+        case 1:
+            return Derivative::First;
+
+        case 2:
+            return Derivative::Second;
+
+        case 3:
+            return Derivative::Third;
+    }
 }

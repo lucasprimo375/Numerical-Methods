@@ -1,7 +1,5 @@
 #include <iostream>
-#include <vector>
 #include <string>
-#include <fstream>
 
 #include "user_input.h"
 #include "utils.h"
@@ -16,6 +14,10 @@ int main(int argc, char *argv[]) {
     double delta_x = get_delta_x();
 	
 	double* data_points = get_data_points(data_file_global_path, &number_of_points);
+
+    if(data_points == nullptr){
+        return 0;
+    }
 	
 	double* third_derivative_central_accuracy_two = new double[number_of_points];
 	double* third_derivative_central_accuracy_four = new double[number_of_points];
