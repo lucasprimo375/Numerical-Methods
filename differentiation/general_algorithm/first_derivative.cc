@@ -9,7 +9,15 @@ double FirstDerivative::central(double* points, int point, int size, Accuracy ac
 				return (points[point+1]/2.0 - points[point-1]/2.0)/delta_x;
 			} else {
 				std::cout << "Not possible to calculate first derivative - accuracy two - central to point " << point << ", with value " << points[point] << std::endl;
-				std::cout << "Returning zero" << std::endl;
+				
+				if(point == 0) {
+					std::cout << "Calculating with forward" << std::endl;
+					return forward(points, point, size, Accuracy::Four, delta_x);
+				} else if(point == size){
+					std::cout << "Calculating with backward" << std::endl;
+					return backward(points, point, size, Accuracy::Four, delta_x);
+				}
+
 				return 0;
 			}
 		}
@@ -50,8 +58,9 @@ double FirstDerivative::forward(double* points, int point, int size, Accuracy ac
 				return ( -points[point] + points[point + 1] )/delta_x;
 			} else {
 				std::cout << "Not possible to calculate first derivative - accuracy one - forward to point " << point << ", with value " << points[point] << std::endl;
-				std::cout << "Returning zero" << std::endl;
-				return 0;
+				std::cout << "Calculating with backward" << std::endl;
+
+				return backward(points, point, size, Accuracy::Four, delta_x);
 			}
 
 			break;
@@ -107,8 +116,9 @@ double FirstDerivative::backward(double* points, int point, int size, Accuracy a
 				return ( points[point] - points[point - 1] )/delta_x;
 			} else {
 				std::cout << "Not possible to calculate first derivative - accuracy one - backward to point " << point << ", with value " << points[point] << std::endl;
-				std::cout << "Returning zero" << std::endl;
-				return 0;
+				std::cout << "Calculating with forward" << std::endl;
+				
+				return forward(points, point, size, Accuracy::Four, delta_x);
 			}
 
 			break;
