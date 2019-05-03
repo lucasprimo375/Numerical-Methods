@@ -15,7 +15,7 @@ std::string get_file_global_path() {
 }
 
 int get_number_of_points(){
-	return 10;
+	return 99;
 	int number_of_points = -1;
 	
 	while(number_of_points < 1){
