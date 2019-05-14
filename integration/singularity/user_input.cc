@@ -1,5 +1,9 @@
 #include <iostream>
 
+#include "exp_method.h"
+#include "simple_exp.h"
+#include "double_exp.h"
+
 double* get_limits() {
 	double lower_limit = 1;
 	double higher_limit = 0;
@@ -21,8 +25,40 @@ double* get_limits() {
 	return limits;
 }
 
-void execute() {
-	double* limits = get_limits();
+double get_precision(std::string message) {
+	double precision = 0;
 
-	std::cout << "The result is: " << std::endl;
+	while( precision <= 0 ) {
+		std::cout << "Input " << message << " precision: " << std::endl << ">> ";
+
+		std::cin >> precision;
+	}
+
+	return precision;
+}
+
+double* get_precisions(){
+	double precision_1 = get_precision("exponentiation");
+
+	double precision_2 = get_precision("closed, degree 2 newton-cotes");
+
+	double* precisions = new double[2];
+
+	precisions[0] = precision_1;
+	precisions[1] = precision_2;
+
+	return precisions;
+}
+
+void execute() {
+	/*double* limits = get_limits();
+	double* precisions = get_precisions();*/
+
+	ExpMethod* exp_method = new SimpleExp(/*limits[0]*/ 0, /*limits[1]*/ 1);
+
+	std::cout << "The result is: " << exp_method->execute(/*precisions[0]*/ 0.01, /*precisions[1]*/ 0.0001) << std::endl;
+
+	exp_method = new DoubleExp(/*limits[0]*/ 0, /*limits[1]*/ 1);
+
+	std::cout << "The result is: " << exp_method->execute(/*precisions[0]*/ 0.01, /*precisions[1]*/ 0.0001) << std::endl;
 }
