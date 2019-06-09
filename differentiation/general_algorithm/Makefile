@@ -1,5 +1,5 @@
-all: main.o user_input.o utils.o first_derivative.o second_derivative.o third_derivative.o
-	g++ -o main main.o user_input.o utils.o first_derivative.o second_derivative.o third_derivative.o
+all: main.o user_input.o utils.o first_derivative.o second_derivative.o third_derivative.o derivative.o
+	g++ -o main main.o user_input.o utils.o first_derivative.o second_derivative.o third_derivative.o derivative.o
 
 main.o: main.cc user_input.h utils.h first_derivative.h third_derivative.h
 	g++ -c main.cc -std=c++11
@@ -18,3 +18,6 @@ utils.o: utils.cc utils.h
 
 user_input.o: user_input.cc user_input.h
 	g++ -c user_input.cc
+
+derivative.o: derivative.cc derivative.h
+	g++ -c derivative.cc
