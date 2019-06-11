@@ -32,7 +32,7 @@ double NewtonCotes::calculatePartitions(double x_I, double x_F, int number_of_pa
         I = I + calculate(x_i_I, x_i_F, f);
     }
 
-    std::cout << "with " << number_of_partitions << " partitions: " << I << std::endl;
+    //std::cout << "with " << number_of_partitions << " partitions: " << I << std::endl;
 
     return I;
 }

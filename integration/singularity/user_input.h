@@ -9,6 +9,6 @@ void execute();
 
 double* get_precisions();
 
-double get_precision(std::string message);
+double get_precision(std::string message, double suggestion);
 
 #endif

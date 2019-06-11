@@ -17,6 +17,9 @@ protected:
 	virtual double dx_ds(double s) = 0;
 
 	double a_, b_;
+
+private:
+	void print_iteration(double value, int iteration, double c);
 };
 
 #endif

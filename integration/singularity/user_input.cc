@@ -10,10 +10,12 @@ double* get_limits() {
 
 	while(higher_limit < lower_limit) {
 		std::cout << "Input lower limit" << std::endl
+					<< "Suggestion: use 0" << std::endl
 					<< "Your choice: ";
 		std::cin >> lower_limit;
 
 		std::cout << "Input higher limit" << std::endl
+					<< "Suggestion: use 1" << std::endl
 					<< "Your choice: ";
 		std::cin >> higher_limit;
 	}
@@ -25,11 +27,11 @@ double* get_limits() {
 	return limits;
 }
 
-double get_precision(std::string message) {
+double get_precision(std::string message, double suggestion) {
 	double precision = 0;
 
 	while( precision <= 0 ) {
-		std::cout << "Input " << message << " precision: " << std::endl << ">> ";
+		std::cout << "Input " << message << " precision: " << std::endl << "Suggestion: use " << suggestion << std::endl << ">> ";
 
 		std::cin >> precision;
 	}
@@ -38,9 +40,9 @@ double get_precision(std::string message) {
 }
 
 double* get_precisions(){
-	double precision_1 = get_precision("exponentiation");
+	double precision_1 = get_precision("exponentiation", 0.01);
 
-	double precision_2 = get_precision("closed, degree 2 newton-cotes");
+	double precision_2 = get_precision("closed, degree 2 newton-cotes", 0.0001);
 
 	double* precisions = new double[2];
 
@@ -51,14 +53,19 @@ double* get_precisions(){
 }
 
 void execute() {
-	/*double* limits = get_limits();
-	double* precisions = get_precisions();*/
+	double* limits = get_limits();
+	double* precisions = get_precisions();
 
-	ExpMethod* exp_method = new SimpleExp(/*limits[0]*/ 0, /*limits[1]*/ 1);
+	std::cout << "Running Simple Exponentiation Method" << std::endl << std::endl;
 
-	std::cout << "The result is: " << exp_method->execute(/*precisions[0]*/ 0.01, /*precisions[1]*/ 0.0001) << std::endl;
+	ExpMethod* exp_method = new SimpleExp(limits[0], limits[1]);
 
-	exp_method = new DoubleExp(/*limits[0]*/ 0, /*limits[1]*/ 1);
+	std::cout << std::endl << "The result for Simple Exponentiation is: " << exp_method->execute(precisions[0], precisions[1]) << std::endl << std::endl;
 
-	std::cout << "The result is: " << exp_method->execute(/*precisions[0]*/ 0.01, /*precisions[1]*/ 0.0001) << std::endl;
+
+	std::cout << "Running Double Exponentiation Method" << std::endl << std::endl;
+
+	exp_method = new DoubleExp(limits[0], limits[1]);
+
+	std::cout << std::endl << std::endl << "The result for Double Exponentiation is: " << exp_method->execute(precisions[0], precisions[1]) << std::endl;
 }
