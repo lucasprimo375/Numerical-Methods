@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
 	double* result = new double[number_of_points];
 
 	for(int i=0; i<number_of_points; i++){
-        result[i] = derivative(derivative_, accuracy, philosophy, data_points, i, number_of_points);
+        result[i] = derivative(derivative_, accuracy, philosophy, data_points, i, number_of_points, delta_x);
 		/*third_derivative_central_accuracy_two[i] = ThirdDerivative::central(data_points, i, number_of_points, Accuracy::Two, delta_x);
         third_derivative_central_accuracy_four[i] = ThirdDerivative::central(data_points, i, number_of_points, Accuracy::Four, delta_x);
         third_derivative_central_accuracy_six[i] = ThirdDerivative::central(data_points, i, number_of_points, Accuracy::Six, delta_x);

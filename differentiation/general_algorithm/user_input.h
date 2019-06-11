@@ -5,9 +5,9 @@
 
 #include "utils.h"
 
-enum class Derivative {First, Second, Third};
+enum Derivative {First, Second, Third};
 
-enum class Philosophy {Backward, Central, Forward};
+enum Philosophy {Backward, Central, Forward};
 
 std::string get_file_global_path();
 

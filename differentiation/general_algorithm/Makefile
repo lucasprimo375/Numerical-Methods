@@ -17,7 +17,7 @@ utils.o: utils.cc utils.h
 	g++ -c utils.cc -std=c++11
 
 user_input.o: user_input.cc user_input.h
-	g++ -c user_input.cc
+	g++ -c user_input.cc -std=c++11
 
 derivative.o: derivative.cc derivative.h
 	g++ -c derivative.cc
