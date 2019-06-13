@@ -4,7 +4,7 @@
 using namespace Functions;
 
 double ClosedOne::calculate(double x_I, double x_F){
-    return ( G(x_F) - G(x_I) ) * ( G(x_F) + G(x_I) ) / 2.0;
+    return ( x_F - x_I ) * ( G(x_F) + G(x_I) ) / 2.0;
 }
 
 double ClosedOne::G(double x) {

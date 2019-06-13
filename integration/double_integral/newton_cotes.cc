@@ -10,8 +10,6 @@ double NewtonCotes::estimate(double x_I, double x_F, double precision){
     double I = calculatePartitions(x_I, x_F, n);
     double I_old;
 
-    std::cout << std::setprecision(6);
-
     do{
         I_old = I;
         n = 2*n;
@@ -30,6 +28,8 @@ double NewtonCotes::calculatePartitions(double x_I, double x_F, int number_of_pa
         double x_i_F = x_i_I + delta_x;
         I = I + calculate(x_i_I, x_i_F);
     }
+
+    std::cout << std::setprecision(6);
 
     std::cout << "with " << number_of_partitions << " partitions: " << I << std::endl;
 
