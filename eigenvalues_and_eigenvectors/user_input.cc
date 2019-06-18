@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "user_input.h"
 #include "methods.h"
@@ -28,4 +29,36 @@ Method UserInput::get_method() {
 
 		default: Method::RegularPowerMethod;
 	}
+}
+
+std::string UserInput::get_matrix_file() {
+	std::string file_name = "";
+
+	std::ifstream matrix_file_stream;
+
+	while( file_name != "" ) {
+		std::cout << "Input matrix file name" << std::endl;
+		std::cout << ">> ";
+		std::cin >> file_name;
+
+		matrix_file_stream.open( file_name.c_str(), std::ifstream::in );
+
+		if( !matrix_file_stream ) {
+			file_name = "";
+		}
+	}
+
+	return file_name;
+}
+
+int get_matrix_size() {
+	int size = 0;
+
+	while( size <= 0 ) {
+		std::cout << "Input matrix size" << std::endl;
+		std::cout << ">> ";
+		std::cin >> size;
+	}
+
+	return size;
 }
