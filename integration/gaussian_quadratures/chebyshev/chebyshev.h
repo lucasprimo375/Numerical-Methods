@@ -1,15 +1,16 @@
-#ifndef GAUSS_QUADRATURE_H
-#define GAUSS_QUADRATURE_H
+#ifndef CHEBYSHEV_H
+#define CHEBYSHEV_H
 
-class GaussQuadrature {
+class Chebyshev {
 public:
+	Chebyshev(int degree);
+
 	double estimate(double (*f)(double));
 protected:
 	double x_s(int k);
 
 	int degree;
 	double* weights;
-	double* roots;
 };
 
 #endif

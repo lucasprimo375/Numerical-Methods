@@ -3,24 +3,18 @@
 #include <string>
 
 #include "user_input.h"
-#include "gauss_quadrature.h"
-#include "degree_two.h"
-#include "degree_three.h"
-#include "degree_four.h"
+#include "chebyshev.h"
 
-Degree get_user_choice() {
+int get_user_choice() {
 	int choice = -1;
-	while((choice < 2) || (choice > 4)) {
-		std::cout << "input degree choice (2-Two, 3-Three, 4-Four)" << std::endl
+	
+	while( choice <= 0 ) {
+		std::cout << "Input degree choice" << std::endl
 					<< "Your choice: " ;
 		std::cin >> choice;
 	}
 
-	if(choice == 2) return kDegreeTwo;
-
-	if(choice == 3) return kDegreeThree;
-
-	return kDegreeFour;
+	return choice;
 }
 
 static double f(double x) {
@@ -30,28 +24,14 @@ static double f(double x) {
 void calculate_integral() {
     std::cout << std::setprecision(6) << std::fixed;
 
-	Degree degree_choice = get_user_choice();
+	int degree_choice = get_user_choice();
 
-	GaussQuadrature* gauss_quadrature;
+	Chebyshev chebyshev( degree_choice );
 	double result;
 
-	switch(degree_choice){
-		case kDegreeTwo:
-			gauss_quadrature = new DegreeTwo();
-			break;
-		case kDegreeThree:
-            gauss_quadrature = new DegreeThree();
-			break;
-		case kDegreeFour:
-            gauss_quadrature = new DegreeFour();
-			break;
-	}
-
-	result = gauss_quadrature->estimate(&f);
+	result = chebyshev.estimate(&f);
 
 	std::cout << std::setprecision(22);
 
 	std::cout << "result: " << result << std::endl;
-
-    delete gauss_quadrature;
 }
