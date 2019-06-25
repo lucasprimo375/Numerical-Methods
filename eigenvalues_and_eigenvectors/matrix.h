@@ -8,6 +8,8 @@ public:
 	void addElement(int row, int column, double value);
 
 	bool isSymmetric();
+
+	void print();
 private:
 	double** content_;
 

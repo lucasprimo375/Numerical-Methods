@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "matrix.h"
 
 Matrix::Matrix(int rows, int columns) {
@@ -18,4 +20,12 @@ void Matrix::addElement(int row, int column, double value) {
 
 bool Matrix::isSymmetric() {
 	
+}
+
+void Matrix::print() {
+	for( int i = 0; i < rows_; i++ ) {
+		for( int j = 0; j < columns_; j++ ) {
+			std::cout << "matrix[" << i << "][" << j << "] = " << content_[i][j] << std::endl;
+		}
+	}
 }
