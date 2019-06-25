@@ -1,8 +1,8 @@
 all: main.o user_input.o methods_executer.o utils.o matrix.o
 	g++ -o main main.o user_input.o methods_executer.o utils.o matrix.o
 
-main.o: main.cc
-	g++ -c main.cc
+main.o: main.cc methods.h user_input.h
+	g++ -c main.cc -std=c++11
 
 user_input.o: user_input.cc user_input.h methods.h
 	g++ -c user_input.cc -std=c++11

@@ -36,14 +36,15 @@ std::string UserInput::get_matrix_file() {
 
 	std::ifstream matrix_file_stream;
 
-	while( file_name != "" ) {
-		std::cout << "Input matrix file name" << std::endl;
+	while( file_name == "" ) {
+		std::cout << std::endl << "Input matrix file name" << std::endl;
 		std::cout << ">> ";
 		std::cin >> file_name;
 
 		matrix_file_stream.open( file_name.c_str(), std::ifstream::in );
 
 		if( !matrix_file_stream ) {
+			std::cout << std::endl << "Your file could not be opened or does not exist" << std::endl;
 			file_name = "";
 		}
 	}
@@ -51,11 +52,11 @@ std::string UserInput::get_matrix_file() {
 	return file_name;
 }
 
-int get_matrix_size() {
+int UserInput::get_matrix_size() {
 	int size = 0;
 
 	while( size <= 0 ) {
-		std::cout << "Input matrix size" << std::endl;
+		std::cout << std::endl << "Input matrix size" << std::endl;
 		std::cout << ">> ";
 		std::cin >> size;
 	}
