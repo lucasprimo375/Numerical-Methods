@@ -4,6 +4,7 @@
 #include <string>
 
 #include "methods.h"
+#include "vector.h"
 
 namespace UserInput {
 	Method get_method();
@@ -11,6 +12,10 @@ namespace UserInput {
 	std::string get_matrix_file();
 
 	int get_matrix_size();
+
+	double get_precision();
+
+	Vector* get_initial_guess(int size);
 };
 
 #endif

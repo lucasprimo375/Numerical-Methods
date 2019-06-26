@@ -3,6 +3,7 @@
 
 #include "user_input.h"
 #include "methods.h"
+#include "vector.h"
 
 Method UserInput::get_method() {
 	int choice = 0;
@@ -80,4 +81,34 @@ int UserInput::get_matrix_size() {
 	}
 
 	return size;
+}
+
+double UserInput::get_precision() {
+	double precision = -1;
+
+	while( precision <= 0 ) {
+		std::cout << std::endl << "Input the desired precision" << std::endl;
+		std::cout << ">> ";
+		std::cin >> precision;
+	}
+
+	return precision;
+}
+
+Vector* UserInput::get_initial_guess(int size){
+	Vector* v = new Vector(size);
+
+	std::cout << std::endl << "Input initial guess" << std::endl;
+
+	for( int i = 0; i < size; i++ ) {
+		std::cout << "Input element " << i << std::endl;
+		std::cout << ">> ";
+
+		double element;
+		std::cin >> element;
+
+		v->addElement(i, element);
+	}
+
+	return v;
 }

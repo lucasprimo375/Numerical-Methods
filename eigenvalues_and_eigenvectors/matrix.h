@@ -1,6 +1,8 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+#include "vector.h"
+
 class Matrix {
 public:
 	Matrix(int rows, int columns_);
@@ -10,6 +12,10 @@ public:
 	bool isSymmetric();
 
 	void print();
+
+	Vector* operator * (Vector* v);
+
+	int getSize();
 private:
 	double** content_;
 

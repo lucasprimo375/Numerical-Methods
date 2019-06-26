@@ -2,6 +2,7 @@
 #include <iomanip>
 
 #include "matrix.h"
+#include "vector.h"
 
 Matrix::Matrix(int rows, int columns) {
 	rows_ = rows;
@@ -40,4 +41,23 @@ void Matrix::print() {
 
 		std::cout << std::endl;
 	}
+}
+
+Vector* Matrix::operator * (Vector* v) {
+	Vector* u = new Vector(v->getSize());
+
+	for( int i = 0; i < v->getSize(); i++ ){
+		double sum = 0;
+
+		for( int j = 0; j < v->getSize(); j++ )
+			sum += content_[i][j] * v->getElement(i);
+		
+		u->addElement(i, sum);
+	}
+
+	return u;
+}
+
+int Matrix::getSize(){
+	return rows_;
 }
