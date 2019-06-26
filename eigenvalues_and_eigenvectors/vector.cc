@@ -52,8 +52,6 @@ double Vector::operator * (Vector* v){
 void Vector::print(){
 	std::cout << std::fixed << std::setprecision(6);
 
-	std::cout << std::endl;
-
 	for( int i = 0; i < size_; i++ ) {
 		std::cout << content_[i] << " ";
 	}

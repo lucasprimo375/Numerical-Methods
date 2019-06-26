@@ -50,7 +50,7 @@ Vector* Matrix::operator * (Vector* v) {
 		double sum = 0;
 
 		for( int j = 0; j < v->getSize(); j++ )
-			sum += content_[i][j] * v->getElement(i);
+			sum += content_[i][j] * v->getElement(j);
 		
 		u->addElement(i, sum);
 	}

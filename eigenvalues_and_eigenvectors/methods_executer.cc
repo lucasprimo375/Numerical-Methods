@@ -33,27 +33,30 @@ void MethodsExecuter::execute_method( Method method, Matrix* matrix, double prec
 }
 
 void MethodsExecuter::regular_power_method( Matrix* matrix, double precision, Vector* x_0 ) {
-	Vector* q = x_0->newNormalized();
+	double lambda_new = 0;
+	Vector* x_old = x_0->newNormalized();
 
-	Vector* x = (*matrix) * q;
+	int k = 1;
 
-	double lambda = (*q) * x;
-
-	double lambda_0;
-
+	double lambda_old;
 	do {
-		lambda_0 = lambda;
-	
-		delete q;
-		q = x->newNormalized();
-		//q->print();
-	
-		delete x;
-		x = (*matrix) * q;
-		x->print();
+		lambda_old = lambda_new;
 
-		lambda =  (*q) * x;
-	} while( std::abs((lambda - lambda_0)/lambda) > precision );
+		Vector* y_new = (*matrix) * x_old;
 
-	std::cout << lambda_0 << std::endl;
+		Vector* x_new = y_new->newNormalized();
+
+		lambda_new = (*x_old) * y_new;
+
+		x_old = x_new;
+
+		std::cout << std::endl << "Iteration " << k << std::endl;
+
+		std::cout << "The eigenvector is " << std::endl;
+		x_new->print();
+
+		std::cout << "The greatest eigenvalue is " << lambda_new << std::endl;
+
+		k++;
+	} while(std::abs((lambda_new - lambda_old)/lambda_new) > precision);
 }
