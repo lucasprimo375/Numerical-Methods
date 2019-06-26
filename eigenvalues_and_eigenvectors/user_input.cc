@@ -14,21 +14,39 @@ Method UserInput::get_method() {
 		std::cin >> choice;
 	}
 
+	Method method;
+
 	switch( choice ) {
-		case 1: return Method::RegularPowerMethod;
+		case 1: 
+			method = Method::RegularPowerMethod;
+			break;
 
-		case 2: return Method::InversePowerMethod;
+		case 2: 
+			method = Method::InversePowerMethod;
+			break;
 	
-		case 3: return Method::DisplacementPowerMethod;
+		case 3: 
+			method = Method::DisplacementPowerMethod;
+			break;
 	
-		case 4: return Method::HouseHolderMethod;
+		case 4: 
+			method = Method::HouseHolderMethod;
+			break;
 	
-		case 5: return Method::JacobiMethod;
+		case 5: 
+			method = Method::JacobiMethod;
+			break;
 
-		case 6: return Method::QRMethod;
+		case 6: 
+			method = Method::QRMethod;
+			break;
 
-		default: Method::RegularPowerMethod;
+		default: 
+			method = Method::RegularPowerMethod;
+			break;
 	}
+
+	return method;
 }
 
 std::string UserInput::get_matrix_file() {

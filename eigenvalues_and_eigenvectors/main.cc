@@ -20,7 +20,16 @@ int main() {
 		return 1;
 	}
 
+	std::cout << std::endl << "Printing matrix in given file" << std::endl << std::endl;
+
 	matrix->print();
+
+	if( !matrix->isSymmetric() ) {
+		std::cout << std::endl << "The input matrix is not symmetric" << std::endl;
+		std::cout << "The methods implemented here require the matrix to be symmetric in order to produce acceptable results" << std::endl;
+
+		return 1;
+	}
 
 	return 0;
 }
