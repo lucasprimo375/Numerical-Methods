@@ -6,6 +6,7 @@
 #include "vector.h"
 
 Method UserInput::get_method() {
+	return Method::HouseHolderMethod;
 	int choice = 0;
 
 	while( (choice < 1) || (choice > 6) ) {
@@ -51,6 +52,7 @@ Method UserInput::get_method() {
 }
 
 std::string UserInput::get_matrix_file() {
+	return "matrix_file.txt";
 	std::string file_name = "";
 
 	std::ifstream matrix_file_stream;
@@ -72,6 +74,7 @@ std::string UserInput::get_matrix_file() {
 }
 
 int UserInput::get_matrix_size() {
+	return 3;
 	int size = 0;
 
 	while( size <= 0 ) {
@@ -84,6 +87,7 @@ int UserInput::get_matrix_size() {
 }
 
 double UserInput::get_precision() {
+	return 0.001;
 	double precision = -1;
 
 	while( precision <= 0 ) {

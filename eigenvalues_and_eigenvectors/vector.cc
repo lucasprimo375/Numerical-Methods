@@ -4,10 +4,15 @@
 
 #include "vector.h"
 
-Vector::Vector( int size ) {
+Vector::Vector( int size, bool zeros ) {
 	size_ = size;
 
 	content_ = new double[size_];
+
+	if( zeros ) {
+		for( int i = 0; i < size_; i++ )
+			content_[i] = 0;
+	}
 }
 
 void Vector::addElement( int index, double value ) {
@@ -47,6 +52,15 @@ double Vector::operator * (Vector* v){
 		sum += content_[i] * v->getElement(i);
 
 	return sum;
+}
+
+Vector* Vector::operator - (Vector* v) {
+	Vector* u = new Vector( size_ );
+
+	for( int i = 0; i < size_; i++ )
+		u->addElement( i, content_[i] - v->getElement(i) );
+
+	return u;
 }
 
 void Vector::print(){

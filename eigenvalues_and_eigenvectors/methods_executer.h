@@ -13,6 +13,10 @@ namespace MethodsExecuter {
 	void inverse_power_method( Matrix* matrix, double precision, Vector* x_0 );
 
 	void shifted_power_method( Matrix* matrix, double precision, Vector* x_0, double lambda_0 );
+
+	Matrix* generate_house_holder_matrix( Matrix* A );
+
+	Matrix* build_house_holder_index( Matrix* A, int i );
 };
 
 #endif

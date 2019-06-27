@@ -101,3 +101,21 @@ Matrix* Matrix::operator - (Matrix* A) {
 
 	return B;
 }
+
+Matrix* Matrix::operator * (Matrix* A) {
+	Matrix* B = new Matrix(rows_, columns_);	
+
+	for( int i = 0; i < rows_; i++ ) {
+		for( int j = 0; j < A->getSize(); j++ ) {
+			double sum = 0;
+
+			for( int k = 0; k < A->getSize(); k++ ){
+				sum += content_[i][k]*A->getElement(k, j);
+			}
+
+			B->addElement(i, j, sum);
+		}
+	}
+
+	return B;
+}

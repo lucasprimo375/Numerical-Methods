@@ -3,7 +3,7 @@
 
 class Vector {
 public:
-	Vector( int size );
+	Vector( int size, bool zeros = false );
 
 	void addElement( int index, double value );
 
@@ -17,12 +17,14 @@ public:
 
 	double operator * (Vector* v);
 
+	Vector* operator - (Vector* v);
+
 	void print();
 
 	Vector* copy();
-private:
-	double length();
 
+	double length();
+private:
 	int size_;
 	double* content_;
 };

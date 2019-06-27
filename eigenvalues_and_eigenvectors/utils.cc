@@ -6,6 +6,7 @@
 
 #include "utils.h"
 #include "matrix.h"
+#include "vector.h"
 
 Matrix* Utils::readMatrixFile(std::string file_name, int matrix_size) {
 	std::ifstream matrix_stream;
@@ -80,4 +81,16 @@ Matrix* Utils::generateShiftedPowerMethodMatrix(Matrix* matrix, double lambda_0)
 	Matrix* A = (*I) * lambda_0;
 
 	return (*matrix) - A;
+}
+
+Matrix* Utils::multiplyVectors( Vector* u, Vector* v ) {
+	Matrix* A = new Matrix( u->getSize(), u->getSize() );
+
+	for( int i = 0; i < u->getSize(); i++ ) {
+		for( int j = 0; j < u->getSize(); j++ ) {
+			A->addElement( i, j, u->getElement(i)*v->getElement(j) );
+		}
+	}
+
+	return A;
 }

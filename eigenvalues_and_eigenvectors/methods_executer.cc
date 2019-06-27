@@ -22,8 +22,15 @@ void MethodsExecuter::execute_method( Method method, Matrix* matrix, double prec
 			MethodsExecuter::shifted_power_method(matrix, precision, x_0, lambda_0);
 			break;
 	
-		case Method::HouseHolderMethod:
-			break;
+		case Method::HouseHolderMethod: {
+			Matrix* A = MethodsExecuter::generate_house_holder_matrix( matrix );
+			
+			std::cout << std::endl << "This method only shows the House Holder Matrix" << std::endl;
+
+			A->print();
+			
+			break;	
+		}
 	
 		case Method::JacobiMethod:
 			break;
@@ -123,4 +130,43 @@ void MethodsExecuter::shifted_power_method( Matrix* matrix, double precision, Ve
 
 		k++;
 	} while(std::abs((lambda_new - lambda_old)/lambda_new) > precision);
+}
+
+Matrix* MethodsExecuter::generate_house_holder_matrix( Matrix* A ) {
+	Matrix* A_bar = A->copy();
+
+	Matrix* H = Utils::generateIdentityMatrix( A->getSize() );
+
+	for( int i = 0; i < A->getSize() - 2; i++ ) {
+		Matrix* H_c = MethodsExecuter::build_house_holder_index( A_bar, i );
+
+		std::cout << std::endl << "H_c" << std::endl;
+		H_c->print();
+	
+		A_bar = *((*H_c)*A_bar)*H_c;
+
+		H = (*H)*H_c;
+	}
+
+	return A_bar;
+}
+
+Matrix* MethodsExecuter::build_house_holder_index( Matrix* A, int i ) {
+	Vector* v = new Vector( A->getSize(), true );
+
+	for( int j = i + 1; j < v->getSize(); j++ )
+		v->addElement( j, A->getElement(j, i) );
+
+	double L_v = v->length();
+
+	Vector* v_bar = new Vector( A->getSize(), true );
+
+	if( v->getElement( i + 1 ) >= 0 )
+		v_bar->addElement( i + 1, L_v );
+	else v_bar->addElement( i + 1, -L_v );
+
+	Vector* n = (*v) - v_bar;
+	n->normalize();
+
+	return (*Utils::generateIdentityMatrix( A->getSize() )) - (*Utils::multiplyVectors(n, n))*2.0;
 }

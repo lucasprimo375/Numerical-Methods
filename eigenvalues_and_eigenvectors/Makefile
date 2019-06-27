@@ -10,7 +10,7 @@ user_input.o: user_input.cc user_input.h methods.h vector.h
 methods_executer.o: methods_executer.cc methods_executer.h methods.h matrix.h gauss_solver.h utils.h
 	g++ -c methods_executer.cc -std=c++11
 
-utils.o: utils.cc utils.h matrix.h
+utils.o: utils.cc utils.h matrix.h vector.h
 	g++ -c utils.cc -std=c++11
 
 matrix.o: matrix.cc matrix.h vector.h
@@ -20,4 +20,4 @@ vector.o: vector.cc vector.h
 	g++ -c vector.cc
 
 gauss_solver.o: gauss_solver.cc gauss_solver.h vector.h matrix.h
-	g++ -c gauss_solver.cc
+	g++ -c gauss_solver.cc -std=c++11

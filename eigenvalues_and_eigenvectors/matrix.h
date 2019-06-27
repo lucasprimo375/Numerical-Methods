@@ -24,6 +24,8 @@ public:
 	Matrix* operator * (double k);
 
 	Matrix* operator - (Matrix* A);
+
+	Matrix* operator * (Matrix* A);
 private:
 	double** content_;
 
