@@ -16,6 +16,8 @@ namespace UserInput {
 	double get_precision();
 
 	Vector* get_initial_guess(int size);
+
+	double get_initial_eigenvalue();
 };
 
 #endif

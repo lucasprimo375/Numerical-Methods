@@ -6,8 +6,9 @@
 #include "matrix.h"
 #include "vector.h"
 #include "gauss_solver.h"
+#include "utils.h"
 
-void MethodsExecuter::execute_method( Method method, Matrix* matrix, double precision, Vector* x_0 ) {
+void MethodsExecuter::execute_method( Method method, Matrix* matrix, double precision, Vector* x_0, double lambda_0 ) {
 	switch( method ) {
 		case Method::RegularPowerMethod:
 			MethodsExecuter::regular_power_method(matrix, precision, x_0);
@@ -17,7 +18,8 @@ void MethodsExecuter::execute_method( Method method, Matrix* matrix, double prec
 			MethodsExecuter::inverse_power_method(matrix, precision, x_0);
 			break;
 	
-		case Method::DisplacementPowerMethod:
+		case Method::ShiftedPowerMethod:
+			MethodsExecuter::shifted_power_method(matrix, precision, x_0, lambda_0);
 			break;
 	
 		case Method::HouseHolderMethod:
@@ -73,7 +75,6 @@ void MethodsExecuter::inverse_power_method( Matrix* matrix, double precision, Ve
 	do {
 		lambda_old = lambda_new;
 
-		// bla
 		Vector* y_new = GaussSolver::solve(matrix, x_old);
 
 		Vector* x_new = y_new->newNormalized();
@@ -88,6 +89,37 @@ void MethodsExecuter::inverse_power_method( Matrix* matrix, double precision, Ve
 		x_new->print();
 
 		std::cout << "The lowest eigenvalue is " << 1.0/lambda_new << std::endl;
+
+		k++;
+	} while(std::abs((lambda_new - lambda_old)/lambda_new) > precision);
+}
+
+void MethodsExecuter::shifted_power_method( Matrix* matrix, double precision, Vector* x_0, double lambda_0 ) {
+	Matrix* A = Utils::generateShiftedPowerMethodMatrix( matrix, lambda_0 );
+
+	double lambda_new = 0;
+	Vector* x_old = x_0->newNormalized();
+
+	int k = 1;
+
+	double lambda_old;
+	do {
+		lambda_old = lambda_new;
+
+		Vector* y_new = GaussSolver::solve(A, x_old);
+
+		Vector* x_new = y_new->newNormalized();
+
+		lambda_new = (*x_old) * y_new;
+
+		x_old = x_new;
+
+		std::cout << std::endl << "Iteration " << k << std::endl;
+
+		std::cout << "The eigenvector is " << std::endl;
+		x_new->print();
+
+		std::cout << "The closest eigenvalue is " << 1.0/lambda_new + lambda_0 << std::endl;
 
 		k++;
 	} while(std::abs((lambda_new - lambda_old)/lambda_new) > precision);

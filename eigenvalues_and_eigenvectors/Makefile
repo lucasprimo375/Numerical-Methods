@@ -7,7 +7,7 @@ main.o: main.cc methods.h user_input.h utils.h matrix.h methods_executer.h vecto
 user_input.o: user_input.cc user_input.h methods.h vector.h
 	g++ -c user_input.cc -std=c++11
 
-methods_executer.o: methods_executer.cc methods_executer.h methods.h matrix.h gauss_solver.h
+methods_executer.o: methods_executer.cc methods_executer.h methods.h matrix.h gauss_solver.h utils.h
 	g++ -c methods_executer.cc -std=c++11
 
 utils.o: utils.cc utils.h matrix.h

@@ -77,3 +77,27 @@ Matrix* Matrix::copy() {
 double Matrix::getElement( int row, int column ) {
 	return content_[row][column];
 }
+
+Matrix* Matrix::operator * (double k) {
+	Matrix* A = this->copy();
+
+	for( int i = 0; i < A->getSize(); i++ ) {
+		for( int j = 0; j < A->getSize(); j++ ) {
+			A->addElement( i, j, A->getElement(i, j) * k );
+		}
+	}
+
+	return A;
+}
+
+Matrix* Matrix::operator - (Matrix* A) {
+	Matrix* B = new Matrix(rows_, columns_);	
+
+	for( int i = 0; i < A->getSize(); i++ ) {
+		for( int j = 0; j < A->getSize(); j++ ) {
+			B->addElement( i, j, content_[i][j] - A->getElement(i, j) );
+		}
+	}
+
+	return B;
+}

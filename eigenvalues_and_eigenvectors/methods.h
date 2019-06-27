@@ -3,7 +3,7 @@
 
 enum class Method { RegularPowerMethod,
 					InversePowerMethod, 
-					DisplacementPowerMethod,
+					ShiftedPowerMethod,
 					HouseHolderMethod,
 					JacobiMethod,
 					QRMethod };

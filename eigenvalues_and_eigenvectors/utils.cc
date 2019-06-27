@@ -60,3 +60,24 @@ bool Utils::addLineToMatrix(std::string line, Matrix* matrix, int row, int matri
 		return true;
 	}
 }
+
+Matrix* Utils::generateIdentityMatrix(int size) {
+	Matrix* A = new Matrix(size, size);
+
+	for(int i = 0; i < size; i++) {
+		for(int j = 0; j < size; j++) {
+			if( i == j ) A->addElement(i, j, 1);
+			else A->addElement(i, j, 0);
+		}
+	}
+
+	return A;
+}
+
+Matrix* Utils::generateShiftedPowerMethodMatrix(Matrix* matrix, double lambda_0) {
+	Matrix* I = Utils::generateIdentityMatrix( matrix->getSize() );
+
+	Matrix* A = (*I) * lambda_0;
+
+	return (*matrix) - A;
+}

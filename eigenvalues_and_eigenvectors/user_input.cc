@@ -10,7 +10,7 @@ Method UserInput::get_method() {
 
 	while( (choice < 1) || (choice > 6) ) {
 		std::cout << std::endl << "Input desired method" << std::endl;
-		std::cout << "1 - Regular Power Method, 2 - Inverse Power Method, 3 - Displacement Power Method, 4 - House Holder Method, 5 - Jacobi Method, 6 - QR Method" << std::endl;
+		std::cout << "1 - Regular Power Method, 2 - Inverse Power Method, 3 - Shifted Power Method, 4 - House Holder Method, 5 - Jacobi Method, 6 - QR Method" << std::endl;
 		std::cout << ">> ";
 		std::cin >> choice;
 	}
@@ -27,7 +27,7 @@ Method UserInput::get_method() {
 			break;
 	
 		case 3: 
-			method = Method::DisplacementPowerMethod;
+			method = Method::ShiftedPowerMethod;
 			break;
 	
 		case 4: 
@@ -111,4 +111,14 @@ Vector* UserInput::get_initial_guess(int size){
 	}
 
 	return v;
+}
+
+double UserInput::get_initial_eigenvalue() {
+	double eigenvalue;
+
+	std::cout << std::endl << "Input the initial eigenvalue" << std::endl;
+	std::cout << ">> ";
+	std::cin >> eigenvalue;
+
+	return eigenvalue;
 }

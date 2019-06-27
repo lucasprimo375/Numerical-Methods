@@ -20,6 +20,10 @@ public:
 	Matrix* copy();
 
 	double getElement( int row, int column );
+
+	Matrix* operator * (double k);
+
+	Matrix* operator - (Matrix* A);
 private:
 	double** content_;
 

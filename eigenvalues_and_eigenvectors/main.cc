@@ -35,11 +35,15 @@ int main() {
 	}*/
 
 	Vector* x_0 = nullptr;
+	double lambda_0;
 
-	if( (method == Method::RegularPowerMethod) || (method == Method::InversePowerMethod) || (method == Method::DisplacementPowerMethod) )
+	if( (method == Method::RegularPowerMethod) || (method == Method::InversePowerMethod) || (method == Method::ShiftedPowerMethod) )
 		x_0 = UserInput::get_initial_guess(matrix->getSize());
 
-	MethodsExecuter::execute_method( method, matrix, precision, x_0 );
+	if(method == Method::ShiftedPowerMethod)
+		lambda_0 = UserInput::get_initial_eigenvalue();
+
+	MethodsExecuter::execute_method( method, matrix, precision, x_0, lambda_0 );
 
 	return 0;
 }
