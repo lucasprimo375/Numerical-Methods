@@ -14,7 +14,7 @@ utils.o: utils.cc utils.h matrix.h vector.h
 	g++ -c utils.cc -std=c++11
 
 matrix.o: matrix.cc matrix.h vector.h
-	g++ -c matrix.cc
+	g++ -c matrix.cc -std=c++11
 
 vector.o: vector.cc vector.h
 	g++ -c vector.cc

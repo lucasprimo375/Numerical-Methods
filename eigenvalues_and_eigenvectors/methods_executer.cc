@@ -138,9 +138,9 @@ void MethodsExecuter::shifted_power_method( Matrix* matrix, double precision, Ve
 Matrix* MethodsExecuter::generate_house_holder_matrix( Matrix* A ) {
 	Matrix* A_bar = A->copy();
 
-	Matrix* H = Utils::generateIdentityMatrix( A->getSize() );
+	Matrix* H = Utils::generateIdentityMatrix( A->getRows() );
 
-	for( int i = 0; i < A->getSize() - 2; i++ ) {
+	for( int i = 0; i < A->getRows() - 2; i++ ) {
 		Matrix* H_c = MethodsExecuter::build_house_holder_index( A_bar, i );
 	
 		A_bar = *((*H_c)*A_bar)*H_c;
@@ -152,14 +152,14 @@ Matrix* MethodsExecuter::generate_house_holder_matrix( Matrix* A ) {
 }
 
 Matrix* MethodsExecuter::build_house_holder_index( Matrix* A, int i ) {
-	Vector* v = new Vector( A->getSize(), true );
+	Vector* v = new Vector( A->getRows(), true );
 
 	for( int j = i + 1; j < v->getSize(); j++ )
 		v->addElement( j, A->getElement(j, i) );
 
 	double L_v = v->length();
 
-	Vector* v_bar = new Vector( A->getSize(), true );
+	Vector* v_bar = new Vector( A->getRows(), true );
 
 	if( v->getElement( i + 1 ) >= 0 )
 		v_bar->addElement( i + 1, L_v );
@@ -168,7 +168,7 @@ Matrix* MethodsExecuter::build_house_holder_index( Matrix* A, int i ) {
 	Vector* n = (*v) - v_bar;
 	n->normalize();
 
-	return (*Utils::generateIdentityMatrix( A->getSize() )) - (*Utils::multiplyVectors(n, n))*2.0;
+	return (*Utils::generateIdentityMatrix( A->getRows() )) - (*Utils::multiplyVectors(n, n))*2.0;
 }
 
 void MethodsExecuter::jacobi_method(Matrix* matrix, double precision) {
@@ -177,10 +177,10 @@ void MethodsExecuter::jacobi_method(Matrix* matrix, double precision) {
 	Matrix* J = MethodsExecuter::generate_house_holder_matrix(matrix);
 
 	for(int k = 0; k < 10000; k++){
-		Matrix* P = Utils::generateIdentityMatrix( A_bar->getSize() );
+		Matrix* P = Utils::generateIdentityMatrix( A_bar->getRows() );
 
-		for(int j = 0; j < A_bar->getSize() - 1; j++){
-			for(int i = j + 1; i < A_bar->getSize(); i++){
+		for(int j = 0; j < A_bar->getRows() - 1; j++){
+			for(int i = j + 1; i < A_bar->getRows(); i++){
 				Matrix* P_i_j = MethodsExecuter::calculate_P_i_j(A_bar, i, j);
 
 				A_bar = *((*P_i_j->transpose())*A_bar)*P_i_j;
@@ -208,7 +208,7 @@ Matrix* MethodsExecuter::calculate_P_i_j(Matrix* matrix, int i, int j){
 		theta = M_PI/4.0;
 	else theta = std::atan(2.0*matrix->getElement(i, j)/(matrix->getElement(j, j) - matrix->getElement(i, i)))/2.0;
 
-	Matrix* P_i_j = Utils::generateIdentityMatrix(matrix->getSize());
+	Matrix* P_i_j = Utils::generateIdentityMatrix(matrix->getRows());
 
 	P_i_j->addElement(i, i, std::cos(theta));
 	P_i_j->addElement(i, j, std::sin(theta));

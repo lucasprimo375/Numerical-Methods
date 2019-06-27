@@ -76,7 +76,7 @@ Matrix* Utils::generateIdentityMatrix(int size) {
 }
 
 Matrix* Utils::generateShiftedPowerMethodMatrix(Matrix* matrix, double lambda_0) {
-	Matrix* I = Utils::generateIdentityMatrix( matrix->getSize() );
+	Matrix* I = Utils::generateIdentityMatrix( matrix->getRows() );
 
 	Matrix* A = (*I) * lambda_0;
 

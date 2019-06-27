@@ -15,7 +15,9 @@ public:
 
 	Vector* operator * (Vector* v);
 
-	int getSize();
+	int getRows();
+
+	int getColumns();
 
 	Matrix* copy();
 

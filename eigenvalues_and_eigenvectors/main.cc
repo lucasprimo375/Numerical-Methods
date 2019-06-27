@@ -38,7 +38,7 @@ int main() {
 	double lambda_0;
 
 	if( (method == Method::RegularPowerMethod) || (method == Method::InversePowerMethod) || (method == Method::ShiftedPowerMethod) )
-		x_0 = UserInput::get_initial_guess(matrix->getSize());
+		x_0 = UserInput::get_initial_guess(matrix->getRows());
 
 	if(method == Method::ShiftedPowerMethod)
 		lambda_0 = UserInput::get_initial_eigenvalue();

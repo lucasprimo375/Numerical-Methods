@@ -44,6 +44,8 @@ void Matrix::print() {
 }
 
 Vector* Matrix::operator * (Vector* v) {
+	if(v->getSize() != rows_) return nullptr;
+
 	Vector* u = new Vector(v->getSize());
 
 	for( int i = 0; i < v->getSize(); i++ ){
@@ -58,8 +60,12 @@ Vector* Matrix::operator * (Vector* v) {
 	return u;
 }
 
-int Matrix::getSize(){
+int Matrix::getRows(){
 	return rows_;
+}
+
+int Matrix::getColumns(){
+	return columns_;
 }
 
 Matrix* Matrix::copy() {
@@ -81,8 +87,8 @@ double Matrix::getElement( int row, int column ) {
 Matrix* Matrix::operator * (double k) {
 	Matrix* A = this->copy();
 
-	for( int i = 0; i < A->getSize(); i++ ) {
-		for( int j = 0; j < A->getSize(); j++ ) {
+	for( int i = 0; i < A->getRows(); i++ ) {
+		for( int j = 0; j < A->getColumns(); j++ ) {
 			A->addElement( i, j, A->getElement(i, j) * k );
 		}
 	}
@@ -93,8 +99,8 @@ Matrix* Matrix::operator * (double k) {
 Matrix* Matrix::operator - (Matrix* A) {
 	Matrix* B = new Matrix(rows_, columns_);	
 
-	for( int i = 0; i < A->getSize(); i++ ) {
-		for( int j = 0; j < A->getSize(); j++ ) {
+	for( int i = 0; i < A->getRows(); i++ ) {
+		for( int j = 0; j < A->getColumns(); j++ ) {
 			B->addElement( i, j, content_[i][j] - A->getElement(i, j) );
 		}
 	}
@@ -106,10 +112,10 @@ Matrix* Matrix::operator * (Matrix* A) {
 	Matrix* B = new Matrix(rows_, columns_);	
 
 	for( int i = 0; i < rows_; i++ ) {
-		for( int j = 0; j < A->getSize(); j++ ) {
+		for( int j = 0; j < A->getColumns(); j++ ) {
 			double sum = 0;
 
-			for( int k = 0; k < A->getSize(); k++ ){
+			for( int k = 0; k < A->getColumns(); k++ ){
 				sum += content_[i][k]*A->getElement(k, j);
 			}
 
