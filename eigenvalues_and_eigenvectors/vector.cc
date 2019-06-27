@@ -59,6 +59,15 @@ void Vector::print(){
 	std::cout << std::endl;
 }
 
+Vector* Vector::copy() {
+	Vector* v = new Vector( size_ );
+
+	for( int i = 0; i < size_; i++ )
+		v->addElement(i, content_[i]);
+
+	return v;
+}
+
 double Vector::length() {
 	double sum = 0;
 

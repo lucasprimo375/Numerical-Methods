@@ -18,6 +18,8 @@ public:
 	double operator * (Vector* v);
 
 	void print();
+
+	Vector* copy();
 private:
 	double length();
 

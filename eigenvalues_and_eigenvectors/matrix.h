@@ -16,6 +16,10 @@ public:
 	Vector* operator * (Vector* v);
 
 	int getSize();
+
+	Matrix* copy();
+
+	double getElement( int row, int column );
 private:
 	double** content_;
 

@@ -61,3 +61,19 @@ Vector* Matrix::operator * (Vector* v) {
 int Matrix::getSize(){
 	return rows_;
 }
+
+Matrix* Matrix::copy() {
+	Matrix* A = new Matrix( rows_, columns_ );
+
+	for( int i = 0; i < rows_; i++ ) {
+		for( int j = 0; j < columns_; j++ ) {
+			A->addElement( i, j, content_[i][j] );
+		}
+	}
+
+	return A;
+}
+
+double Matrix::getElement( int row, int column ) {
+	return content_[row][column];
+}

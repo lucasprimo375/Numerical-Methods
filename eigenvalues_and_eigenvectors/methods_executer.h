@@ -9,6 +9,8 @@ namespace MethodsExecuter {
 	void execute_method( Method method, Matrix* matrix, double precision, Vector* x_0 );
 
 	void regular_power_method( Matrix* matrix, double precision, Vector* x_0 );
+
+	void inverse_power_method( Matrix* matrix, double precision, Vector* x_0 );
 };
 
 #endif
