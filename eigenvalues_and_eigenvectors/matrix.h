@@ -26,6 +26,8 @@ public:
 	Matrix* operator - (Matrix* A);
 
 	Matrix* operator * (Matrix* A);
+
+	Matrix* transpose();
 private:
 	double** content_;
 

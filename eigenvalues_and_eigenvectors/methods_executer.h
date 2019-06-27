@@ -17,6 +17,10 @@ namespace MethodsExecuter {
 	Matrix* generate_house_holder_matrix( Matrix* A );
 
 	Matrix* build_house_holder_index( Matrix* A, int i );
+
+	void jacobi_method(Matrix* matrix, double precision);
+
+	Matrix* calculate_P_i_j(Matrix* matrix, int i, int j);
 };
 
 #endif

@@ -8,6 +8,8 @@
 #include "gauss_solver.h"
 #include "utils.h"
 
+#define _USE_MATH_DEFINES
+
 void MethodsExecuter::execute_method( Method method, Matrix* matrix, double precision, Vector* x_0, double lambda_0 ) {
 	switch( method ) {
 		case Method::RegularPowerMethod:
@@ -33,6 +35,7 @@ void MethodsExecuter::execute_method( Method method, Matrix* matrix, double prec
 		}
 	
 		case Method::JacobiMethod:
+			MethodsExecuter::jacobi_method(matrix, precision);
 			break;
 
 		case Method::QRMethod:
@@ -139,9 +142,6 @@ Matrix* MethodsExecuter::generate_house_holder_matrix( Matrix* A ) {
 
 	for( int i = 0; i < A->getSize() - 2; i++ ) {
 		Matrix* H_c = MethodsExecuter::build_house_holder_index( A_bar, i );
-
-		std::cout << std::endl << "H_c" << std::endl;
-		H_c->print();
 	
 		A_bar = *((*H_c)*A_bar)*H_c;
 
@@ -169,4 +169,51 @@ Matrix* MethodsExecuter::build_house_holder_index( Matrix* A, int i ) {
 	n->normalize();
 
 	return (*Utils::generateIdentityMatrix( A->getSize() )) - (*Utils::multiplyVectors(n, n))*2.0;
+}
+
+void MethodsExecuter::jacobi_method(Matrix* matrix, double precision) {
+	Matrix* A_bar = matrix->copy();
+
+	Matrix* J = MethodsExecuter::generate_house_holder_matrix(matrix);
+
+	for(int k = 0; k < 10000; k++){
+		Matrix* P = Utils::generateIdentityMatrix( A_bar->getSize() );
+
+		for(int j = 0; j < A_bar->getSize() - 1; j++){
+			for(int i = j + 1; i < A_bar->getSize(); i++){
+				Matrix* P_i_j = MethodsExecuter::calculate_P_i_j(A_bar, i, j);
+
+				A_bar = *((*P_i_j->transpose())*A_bar)*P_i_j;
+
+				P = *P*P_i_j;
+			}
+		}
+
+		J = *J*P;
+	}
+
+	std::cout << std::endl << "The eigenvectors matrix is" << std::endl;
+
+	J->print();
+
+	std::cout << std::endl << "The eigenvalues matrix is" << std::endl;
+
+	A_bar->print();
+}
+
+Matrix* MethodsExecuter::calculate_P_i_j(Matrix* matrix, int i, int j){
+	double theta;
+
+	if(matrix->getElement(j, j) == matrix->getElement(i, i))
+		theta = M_PI/4.0;
+	else theta = std::atan(2.0*matrix->getElement(i, j)/(matrix->getElement(j, j) - matrix->getElement(i, i)))/2.0;
+
+	Matrix* P_i_j = Utils::generateIdentityMatrix(matrix->getSize());
+
+	P_i_j->addElement(i, i, std::cos(theta));
+	P_i_j->addElement(i, j, std::sin(theta));
+	P_i_j->addElement(j, i, -std::sin(theta));
+	P_i_j->addElement(j, j, std::cos(theta));
+
+	return P_i_j;
 }

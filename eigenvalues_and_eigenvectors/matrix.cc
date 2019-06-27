@@ -119,3 +119,15 @@ Matrix* Matrix::operator * (Matrix* A) {
 
 	return B;
 }
+
+Matrix* Matrix::transpose(){
+	Matrix* A = new Matrix(rows_, columns_);
+
+	for(int i = 0; i < rows_; i++){
+		for(int j = 0; j < columns_; j++){
+			A->addElement(j, i, content_[i][j]);
+		}	
+	}
+
+	return A;
+}
