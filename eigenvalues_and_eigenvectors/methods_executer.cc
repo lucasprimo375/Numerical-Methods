@@ -7,6 +7,7 @@
 #include "vector.h"
 #include "gauss_solver.h"
 #include "utils.h"
+#include "QR.h"
 
 #define _USE_MATH_DEFINES
 
@@ -39,6 +40,7 @@ void MethodsExecuter::execute_method( Method method, Matrix* matrix, double prec
 			break;
 
 		case Method::QRMethod:
+			MethodsExecuter::QR_method( matrix, precision );
 			break;
 
 		default: 
@@ -237,4 +239,71 @@ double MethodsExecuter::get_max_not_diagonal( Matrix* A ) {
 	}
 
 	return max;
+}
+
+void MethodsExecuter::QR_method( Matrix* A, double precision ) {
+	Matrix * P = MethodsExecuter::generate_house_holder_matrix(A);
+
+	Matrix * A_bar = A->copy();
+
+	double max_old = 0;
+	double max_new = 0;
+
+	do {
+		max_old = max_new;
+
+		QR* qr = MethodsExecuter::QR_decomposition(A_bar);
+
+		A_bar = (*qr->R)*qr->Q;
+
+		P = (*P)*qr->Q;
+
+		max_new = MethodsExecuter::get_max_not_diagonal(A_bar);
+	} while( (std::abs(max_new - max_old))/max_new > precision );
+
+	std::cout << std::endl << "The eigenvectors matrix is" << std::endl;
+
+	P->print();
+
+	std::cout << std::endl << "The eigenvalues matrix is" << std::endl;
+
+	A_bar->print();
+}
+
+QR* MethodsExecuter::QR_decomposition( Matrix* A ) {
+	Matrix* Q = Utils::generateIdentityMatrix(A->getRows());
+
+	for( int j = 0; j < A->getRows() - 1; j++ ) {
+		for( int i = j + 1; i < A->getColumns(); i++ ) {
+			Matrix* P_T_i_j = MethodsExecuter::build_P_T_i_j(A, i, j);
+
+			A = (*P_T_i_j->transpose())*A;
+
+			Q = (*Q)*P_T_i_j;
+		}
+	}
+
+	QR* qr = new QR();
+
+	qr->R = A;
+	qr->Q = Q;
+
+	return qr;
+}
+
+Matrix* MethodsExecuter::build_P_T_i_j(Matrix* A, int i, int j) {
+	Matrix* P_T_i_j = Utils::generateIdentityMatrix(A->getRows());
+
+	double theta;
+
+	if( A->getElement(j, j) == 0 )
+		theta = M_PI/2.0;
+	else theta = std::atan(A->getElement(i, j)/A->getElement(j, j));
+
+	P_T_i_j->addElement(i, i, std::cos(theta));
+	P_T_i_j->addElement(i, j, std::sin(theta));
+	P_T_i_j->addElement(j, i, -std::sin(theta));
+	P_T_i_j->addElement(j, j, std::cos(theta));
+
+	return P_T_i_j;
 }

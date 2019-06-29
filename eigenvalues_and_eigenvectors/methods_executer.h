@@ -4,6 +4,7 @@
 #include "methods.h"
 #include "matrix.h"
 #include "vector.h"
+#include "QR.h"
 
 namespace MethodsExecuter {
 	void execute_method( Method method, Matrix* matrix, double precision, Vector* x_0, double lambda_0 );
@@ -23,6 +24,12 @@ namespace MethodsExecuter {
 	Matrix* calculate_P_i_j(Matrix* matrix, int i, int j);
 
 	double get_max_not_diagonal( Matrix* A );
+
+	void QR_method( Matrix* A , double precision );
+
+	QR* QR_decomposition( Matrix* A );
+
+	Matrix* build_P_T_i_j(Matrix* A, int i, int j);
 };
 
 #endif
