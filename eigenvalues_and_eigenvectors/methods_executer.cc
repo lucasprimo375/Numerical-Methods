@@ -176,7 +176,12 @@ void MethodsExecuter::jacobi_method(Matrix* matrix, double precision) {
 
 	Matrix* J = MethodsExecuter::generate_house_holder_matrix(matrix);
 
-	for(int k = 0; k < 10000; k++){
+	double max_old = 0;
+	double max_new = 0;
+
+	do {
+		max_old = max_new;
+		
 		Matrix* P = Utils::generateIdentityMatrix( A_bar->getRows() );
 
 		for(int j = 0; j < A_bar->getRows() - 1; j++){
@@ -190,7 +195,10 @@ void MethodsExecuter::jacobi_method(Matrix* matrix, double precision) {
 		}
 
 		J = *J*P;
-	}
+
+		max_new = MethodsExecuter::get_max_not_diagonal(A_bar);
+
+	} while( (std::abs(max_new - max_old))/max_new > precision );
 
 	std::cout << std::endl << "The eigenvectors matrix is" << std::endl;
 
@@ -216,4 +224,17 @@ Matrix* MethodsExecuter::calculate_P_i_j(Matrix* matrix, int i, int j){
 	P_i_j->addElement(j, j, std::cos(theta));
 
 	return P_i_j;
+}
+
+double MethodsExecuter::get_max_not_diagonal( Matrix* A ) {
+	double max = std::abs(A->getElement(0, 1));
+
+	for( int i = 0; i < A->getRows(); i++ ) {
+		for( int j = 0; j < A->getColumns(); j++ ) {
+			if( (i != j) && (std::abs(A->getElement(i, j)) > max) )
+				max = std::abs(A->getElement(i, j));
+		}
+	}
+
+	return max;
 }

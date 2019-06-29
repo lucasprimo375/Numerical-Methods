@@ -21,6 +21,8 @@ namespace MethodsExecuter {
 	void jacobi_method(Matrix* matrix, double precision);
 
 	Matrix* calculate_P_i_j(Matrix* matrix, int i, int j);
+
+	double get_max_not_diagonal( Matrix* A );
 };
 
 #endif
