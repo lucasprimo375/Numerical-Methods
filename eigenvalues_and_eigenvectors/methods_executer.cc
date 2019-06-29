@@ -242,7 +242,7 @@ double MethodsExecuter::get_max_not_diagonal( Matrix* A ) {
 }
 
 void MethodsExecuter::QR_method( Matrix* A, double precision ) {
-	Matrix * P = MethodsExecuter::generate_house_holder_matrix(A);
+	Matrix * P = Utils::generateIdentityMatrix(A->getRows());
 
 	Matrix * A_bar = A->copy();
 
