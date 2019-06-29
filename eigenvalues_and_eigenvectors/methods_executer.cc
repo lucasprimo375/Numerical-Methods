@@ -176,7 +176,7 @@ Matrix* MethodsExecuter::build_house_holder_index( Matrix* A, int i ) {
 void MethodsExecuter::jacobi_method(Matrix* matrix, double precision) {
 	Matrix* A_bar = matrix->copy();
 
-	Matrix* J = MethodsExecuter::generate_house_holder_matrix(matrix);
+	Matrix* J = Utils::generateIdentityMatrix( A_bar->getRows() );
 
 	double max_old = 0;
 	double max_new = 0;
