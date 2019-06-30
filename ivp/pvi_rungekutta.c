@@ -5,6 +5,7 @@
 // Considerando f(x, y) = dy / dx na função abaixo 
 float f(float x, float y) 
 { 
+    
     return(-2*x*y); 
 } 
   
