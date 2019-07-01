@@ -9,6 +9,7 @@ double Functions::g(double x) {
 }
 
 double Functions::z(double x) {
-	if(x <= 0.5) return 4.0*x;
-	else return -4.0*x + 4.0;
+	if(x >= 0 && x <= 0.5) return 4.0*x;
+	else if(x > 0.5 && x <= 1) return -4.0*x + 4.0;
+	else return 0;
 }

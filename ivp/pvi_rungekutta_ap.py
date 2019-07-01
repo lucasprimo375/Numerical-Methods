@@ -1,6 +1,5 @@
 # Implementação do Método de Range-Kutta de 4° ordem utilizando Python
 
-import numpy
 import sys
 
 AM = 0.05

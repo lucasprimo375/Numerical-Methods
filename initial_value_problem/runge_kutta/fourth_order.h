@@ -3,9 +3,11 @@
 
 class FourthOrder {
 public:
-	FourthOrder(double initial_y, double initial_derivative, int steps, double step_size);
+	FourthOrder(double initial_x, double initial_y, double initial_derivative, double target, double step_size, double tolerance);
 
 	void solve();
+
+	double solve_iterative();
 
 private:
 	double dy_dx(double x, double y, double w);
@@ -18,6 +20,14 @@ private:
 
 	int n_;
 	double h_;
+
+	double tolerance_;
+
+	double target_;
+
+	double initial_x_;
+	double initial_y_;
+	double initial_derivative_;
 };
 
 #endif
