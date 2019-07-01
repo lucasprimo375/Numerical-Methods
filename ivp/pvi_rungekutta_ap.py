@@ -2,6 +2,7 @@
 
 import numpy
 import sys
+from decimal import Decimal
 
 AM = 0.05
 W = 2.0 # sqrt(4/1), k=4
@@ -59,7 +60,11 @@ def rungeKutta(t0,  x0,  v0,  t,  h):
         t0 = t0 + h
         
         #printf("v = %f, x = %f, t = %f\n", v, x, t0)
-    print(f"(v: {v}, x: {x}, h: {h})")
+    
+    v = Decimal.from_float(v)
+    x = Decimal.from_float(x)
+    print(f"(v: {v:.17f}, x: {x:.17f}, h: {h})")
+
     return v, x
  
 
@@ -72,7 +77,7 @@ def VX( t0,  x0,  v0,  t,  h,  tol):
     c = rungeKutta(t0, x0, v0, t, h)
     x_f = c[1]
     while (abs((x_f-x_i)/x_f)>tol):
-        print(abs((x_f-x_i)/x_f))
+        #print(abs((x_f-x_i)/x_f))
         h = 0.5*h
         x_i = x_f
         c = rungeKutta(t0, x0, v0, t, h)
@@ -92,5 +97,4 @@ h = float(sys.argv[3])#0.1
 tol = float(sys.argv[2])#0.000000001
 t0, x0, v0 = 0, 0, 0 
 c = VX(t0, x0, v0, t, h, tol) 
-print("O valor de v e x em t = {} (com tolerância de {}) é: \nv =  {} \nx = {}".format(t, tol,
-        c[0], c[1])) 
+print(f"\nO valor de v e x em t = {t} (com tolerância de {tol}) é: \nv =  {c[0]:.17f} \nx = {c[1]:.17f}") 
