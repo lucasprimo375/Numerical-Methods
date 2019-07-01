@@ -91,7 +91,7 @@ def VX( t0,  x0,  v0,  t,  h,  tol):
   
 # Driver method 
 
-if len(sys.argv)!=3: print("Entre o tempo, a tolerância e o passo inicial desejados.\nEx: python pvi_rungekutta_ap.py 1.2 0.000000001 0.1")
+if len(sys.argv)!=4: print("Entre o tempo, a tolerância e o passo inicial desejados.\nEx: python pvi_rungekutta_ap.py 1.2 0.000000001 0.1")
 t = float(sys.argv[1])#1.2
 h = float(sys.argv[3])#0.1
 tol = float(sys.argv[2])#0.000000001
