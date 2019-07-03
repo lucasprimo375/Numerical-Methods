@@ -1,10 +1,14 @@
 # Implementação do Método de Range-Kutta de 4° ordem utilizando Python
 
 import sys
+import math
 
+A, B, C, D, E, Fp = 3, 7, 7, 7, 3, 9
+
+M = 1.0 + (A+B+C+D+E+Fp) % 4
 AM = 0.05
-W = 2.0 # sqrt(4/1), k=4
-M = 1.0 # 1 + 36%4
+K = 4
+W = math.sqrt(K/M)
   
 # Considerando f(x, y) = dy / dx na função abaixo
 def f( t):
@@ -85,11 +89,13 @@ def VX( t0,  x0,  v0,  t,  h,  tol):
   
 # Driver method 
 
-if len(sys.argv)!=3: print("Entre o tempo, a tolerância e o passo inicial desejados.\nEx: python pvi_rungekutta_ap.py 1.2 0.000000001 0.1")
+if len(sys.argv)!=4: 
+    print("Entre o tempo, a tolerância e o passo inicial desejados.\nEx: python pvi_rungekutta_ap.py 1.2 0.000000001 0.1")
+    sys.exit()
 t = float(sys.argv[1])#1.2
 h = float(sys.argv[3])#0.1
 tol = float(sys.argv[2])#0.000000001
-t0, x0, v0 = 0, 0, 0 
+t0, x0, v0 = 0, (E+Fp)%3, 0 
 c = VX(t0, x0, v0, t, h, tol) 
 print("O valor de v e x em t = {} (com tolerância de {}) é: \nv =  {} \nx = {}".format(t, tol,
         c[0], c[1])) 

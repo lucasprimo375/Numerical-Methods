@@ -7,11 +7,12 @@
 
 using namespace Functions;
 
-BoundaryValueProblemSolver::BoundaryValueProblemSolver(double a, double b, int n){
+BoundaryValueProblemSolver::BoundaryValueProblemSolver(int* v, double a, double b, int n){
 	a_ = a;
 	b_ = b;
 	n_ = n + 1;
 	h_ = (b_ - a_)/n;
+	v_ = v;
 }
 
 void BoundaryValueProblemSolver::solve(double c1, double c2){
@@ -20,7 +21,7 @@ void BoundaryValueProblemSolver::solve(double c1, double c2){
 	b[0] = c1;
 	b[n_ - 1] = c2;
 	for(int i = 1; i < n_ - 1; i++)
-		b[i] = z(x(i));
+		b[i] = z(v_, x(i));
 
 	std::cout << std::endl << "Vector b:" << std::endl;
 
