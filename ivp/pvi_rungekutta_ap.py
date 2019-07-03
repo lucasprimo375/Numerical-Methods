@@ -75,7 +75,7 @@ def VX( t0,  x0,  v0,  t,  h,  tol):
     c = rungeKutta(t0, x0, v0, t, h)
     x_f = c[1]
     while (abs((x_f-x_i)/x_f)>tol):
-        print(abs((x_f-x_i)/x_f))
+        #print(abs((x_f-x_i)/x_f))
         h = 0.5*h
         x_i = x_f
         c = rungeKutta(t0, x0, v0, t, h)
